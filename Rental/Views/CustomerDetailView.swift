@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CustomerDetailView: View {
     
-    @ObservedObject var customer: Customer
+    @State var customer: Customer
     
     @ObservedObject var customerVM: CustomerViewModel
     
@@ -41,7 +41,7 @@ struct CustomerDetailView: View {
                         .font(Font.custom("Avenir Heavy", size: 18))
                 }
                 Section {
-                    Text("Phone: \(customer.phoneNumber)")
+                    Text("Phone: \(customer.phoneNumber.applyPatternOnNumbers(pattern: "(###) ###-####", replacementCharacter: "#"))")
                         .font(Font.custom("Avenir Heavy", size: 18))
                     //                Text("Rentals: \(customerVM.rentals[0])")
                 }

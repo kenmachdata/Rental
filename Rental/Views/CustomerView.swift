@@ -47,7 +47,7 @@ struct CustomerView: View {
                                         HStack {
                                             Text(customer.firstName)
                                             Spacer()
-                                            Text(customer.phoneNumber)
+                                            Text(customer.phoneNumber.applyPatternOnNumbers(pattern: "(###) ###-####", replacementCharacter: "#"))
                                         }
                                         .foregroundColor(.blue)
                                         .font(Font.custom("Avenir Heavy", size: 16))
