@@ -26,12 +26,12 @@ struct AuthenticatedView: View {
                            label: {
                 ZStack {
                     
-                    RectangleCard(color: Color.blue)
+                    RectangleCard(color: K.Colors.buttonBlue)
                         .frame(width: 250, height: 85, alignment: .center)
                         .padding()
                     
                     Text("Customers")
-                        .foregroundColor(Color.white)
+                        .foregroundColor(K.Colors.buttonTextWhite)
                         .font(.system(.title2))
                         .bold()
                 }
@@ -40,12 +40,12 @@ struct AuthenticatedView: View {
             NavigationLink(destination: EmptyView(), label: {
                 ZStack {
                     
-                    RectangleCard(color: Color.blue)
+                    RectangleCard(color: K.Colors.buttonBlue)
                         .frame(width: 250, height: 85, alignment: .center)
                         .padding()
                     
                     Text("Units")
-                        .foregroundColor(Color.white)
+                        .foregroundColor(K.Colors.buttonTextWhite)
                         .font(.system(.title2))
                         .bold()
                 }

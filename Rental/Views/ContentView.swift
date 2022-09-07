@@ -37,12 +37,12 @@ struct ContentView: View {
                                  AnyView(LoginView(loginVM: loginVM)), label: {
                     ZStack {
                         
-                        RectangleCard(color: Color.blue)
+                        RectangleCard(color: K.Colors.buttonBlue)
                             .frame(width: 250, height: 85, alignment: .center)
                             .padding()
                         
                         Text(loginVM.isAuthenticated ? "Manage" : "LogIn")
-                            .foregroundColor(Color.white)
+                            .foregroundColor(K.Colors.buttonTextWhite)
                             .font(.system(.title2))
                             .bold()
                     }

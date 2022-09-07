@@ -25,13 +25,13 @@ struct CustomerView: View {
                         .fontWeight(.bold)
                         .padding(.leading, 20.0)
                         .padding(.vertical, 0)
-                        .font(.headline)
+                        .font(K.Fonts.sectionTitle)
                     Spacer()
                     Text("Phone:")
                         .fontWeight(.bold)
                         .padding(.trailing, 40.0)
                         .padding(.vertical, 0)
-                        .font(.headline)
+                        .font(K.Fonts.sectionTitle)
                 }
                 
                 ScrollView {
@@ -45,12 +45,12 @@ struct CustomerView: View {
                                     // MARK: Row item
                                     VStack(alignment: .leading) {
                                         HStack {
-                                            Text(customer.firstName)
+                                            Text(customer.firstName + " " + customer.lastName)
                                             Spacer()
                                             Text(customer.phoneNumber.applyPatternOnNumbers(pattern: "(###) ###-####", replacementCharacter: "#"))
                                         }
-                                        .foregroundColor(.blue)
-                                        .font(Font.custom("Avenir Heavy", size: 16))
+                                        .foregroundColor(K.Colors.buttonBlue)
+                                        .font(K.Fonts.link)
                                         .padding(.horizontal)
                                         .padding(.vertical, 2)
                                     }

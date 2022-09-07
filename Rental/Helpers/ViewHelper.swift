@@ -46,6 +46,23 @@ struct MyTextFieldStyle: TextFieldStyle {
     }
 }
 
+struct K {
+    struct Colors {
+        static let gradientStartBlue = Color(red: 153 / 255.0, green: 204 / 255.0, blue: 255 / 255.0)
+        static let gradientEndBlue = Color(red: 51 / 255.0, green: 153 / 255.0, blue: 255 / 255.0)
+        
+        static let buttonBlue = Color.blue
+        static let buttonTextWhite = Color.white
+    }
+    
+    struct Fonts {
+        static let sectionTitle = Font.custom("Avenir Heavy", size: 24)
+        static let sectionItem = Font.custom("Avenir Heavy", size: 18)
+        static let sectionHeader = Font.custom("Avenir", size: 14)
+        
+        static let link = Font.custom("Avenir Heavy", size: 16)
+    }
+}
 
 
 //public protocol TextFieldStyle {
