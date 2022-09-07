@@ -21,7 +21,7 @@ class Account: Identifiable, Decodable {
     var roleName: String
 }
 
-class Customer: Identifiable, Decodable, ObservableObject {
+class Customer: Identifiable, Decodable, Encodable, ObservableObject {
     var id: Int
     var address: String
     var city: String

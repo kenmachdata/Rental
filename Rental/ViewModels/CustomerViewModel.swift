@@ -11,9 +11,6 @@ class CustomerViewModel: ObservableObject {
     
     @Published var customerList = [Customer]()
     
-    init() {
-    }
-    
     func getAllCustomers() {
         
         let defaults = UserDefaults.standard
@@ -82,18 +79,22 @@ class CustomerViewModel: ObservableObject {
             return customer.rentals
         }
     }
-}
-
-extension String {
-    func applyPatternOnNumbers(pattern: String, replacementCharacter: Character) -> String {
-        var pureNumber = self.replacingOccurrences( of: "[^0-9]", with: "", options: .regularExpression)
-        for index in 0 ..< pattern.count {
-            guard index < pureNumber.count else { return pureNumber }
-            let stringIndex = String.Index(utf16Offset: index, in: pattern)
-            let patternCharacter = pattern[stringIndex]
-            guard patternCharacter != replacementCharacter else { continue }
-            pureNumber.insert(patternCharacter, at: stringIndex)
+    
+    func updateCustomer(selectedCustomer: Customer) {
+        
+        let defaults = UserDefaults.standard
+        guard let token = defaults.string(forKey: "jsonWebToken") else {
+            return
         }
-        return pureNumber
+        
+        WebService().patchCustomer(token: token, customer: selectedCustomer) { (result) in
+            switch result {
+            case .success(let customer):
+                print(customer.firstName)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
+
 }

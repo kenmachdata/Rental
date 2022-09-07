@@ -131,6 +131,7 @@ struct CustomerDetailView: View {
             }
             Button(action: {
                 self.customerVM.objectWillChange.send()
+                self.customerVM.updateCustomer(selectedCustomer: customer)
                 self.isEditing = false
             }, label: {
                 Text("Submit")
