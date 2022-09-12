@@ -11,12 +11,12 @@ struct CustomerDetailView: View {
     
     @State var customer: Customer
     
-    /// Whether the user is focused on this `TextField`.
+    // Whether the user is focused on this `TextField`.
     @State private var isEditing: Bool = false
     
     @ObservedObject var customerVM: CustomerViewModel
     
-//    @EnvironmentObject var model: ContentModel
+    // @EnvironmentObject var model: ContentModel
     
     var body: some View {
         
@@ -134,17 +134,18 @@ struct CustomerDetailView: View {
                 self.customerVM.updateCustomer(selectedCustomer: customer)
                 self.isEditing = false
             }, label: {
-                Text("Submit")
+                Text("Submit".uppercased())
                     .frame(width: 250,
                            height: 50,
                            alignment: .center)
                     .background(Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(8)
+                    .font(K.Fonts.buttonText.bold())
             })
             .padding()
         }
-        .navigationTitle("Customer Detail")
+        .navigationTitle("Detail")
     }
 }
 

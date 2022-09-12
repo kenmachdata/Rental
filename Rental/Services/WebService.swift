@@ -40,7 +40,7 @@ struct CustomerRequestBody: Codable {
 
 class WebService: ObservableObject {
     
-    // Login Function authenticate to the Rental API
+    // Authenticate to the Rental API
     func login(email: String, password: String, rememberMe: Bool, completion: @escaping (Result<String, AuthenticationError>) -> Void) {
         
         guard let url = URL(string: "http://localhost:5000/api/authentication/login") else {
@@ -161,7 +161,59 @@ class WebService: ObservableObject {
         }.resume()
     }
     
-    
+    // Request the Rental API PATCH Unit
+    func patchUnit(token: String, unit: rentUnit, completion: @escaping (Result<rentUnit, NetworkError>) -> Void) {
+
+        // Construct the URL
+        guard let url = URL(string: "http://localhost:5000/api/unit/update") else {
+            completion(.failure(.invalidURL))
+            return
+        }
+
+        // Define request
+        var request = URLRequest(url: url)
+        
+        // Build the request
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("gzip, deflate, br", forHTTPHeaderField: "Accept-Encoding")
+        
+        request.httpMethod = "PATCH"
+
+        // Assure the passed in customer encodes to json
+        guard let encodedResult = try? JSONEncoder().encode(unit.self) else {
+            completion(.failure(.encodingError))
+            return
+        }
+        // If the passed in customer correctly encodes set the request.httpBody
+        request.httpBody = encodedResult
+
+
+        // Get the session and kick off the task
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+            // Check after the patch for !data.isEmpty and error == nil
+            guard let data = data, error == nil else {
+                completion(.failure(.noData))
+                return
+            }
+            
+            // If data decodes all is good to go
+            guard let editedUnit = try? JSONDecoder().decode(rentUnit.self, from: data) else {
+                completion(.failure(.decodingError))
+                return
+            }
+
+            //Just for my knowledge
+            if let response = response as? HTTPURLResponse{
+                print(response.statusCode)
+            }
+            
+            completion(.success(editedUnit))
+
+        }.resume()
+    }
+
     
     // Request the Rental API reveal all the units
     func getAllUnits(token: String, completion: @escaping (Result<[rentUnit], NetworkError>) -> Void) {

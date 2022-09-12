@@ -10,6 +10,7 @@ import SwiftUI
 struct AuthenticatedView: View {
     
     @StateObject var customerVm: CustomerViewModel = CustomerViewModel()
+    @StateObject var unitVm: UnitViewModel = UnitViewModel()
     @ObservedObject var loginVM: LoginViewModel
     
     
@@ -30,24 +31,28 @@ struct AuthenticatedView: View {
                         .frame(width: 250, height: 85, alignment: .center)
                         .padding()
                     
-                    Text("Customers")
+                    Text("Customers".uppercased())
                         .foregroundColor(K.Colors.buttonTextWhite)
-                        .font(.system(.title2))
-                        .bold()
+                        .font(K.Fonts.buttonText.bold())
                 }
             })
             
-            NavigationLink(destination: EmptyView(), label: {
+            NavigationLink(destination: UnitView(unitVm: unitVm, customerVm: customerVm, loginVm: loginVM)
+                .onAppear(perform: {
+                    if unitVm.unitList.isEmpty {
+                        unitVm.getAllUnits()
+                    }
+                }), label: {
+                
                 ZStack {
                     
                     RectangleCard(color: K.Colors.buttonBlue)
                         .frame(width: 250, height: 85, alignment: .center)
                         .padding()
                     
-                    Text("Units")
+                    Text("Units".uppercased())
                         .foregroundColor(K.Colors.buttonTextWhite)
-                        .font(.system(.title2))
-                        .bold()
+                        .font(K.Fonts.buttonText.bold())
                 }
             })
         }

@@ -35,7 +35,7 @@ class Customer: Identifiable, Decodable, Encodable, ObservableObject {
     var rentals: [String]
 }
 
-class rentUnit: Identifiable, Decodable {
+class rentUnit: Identifiable, Decodable, Encodable, ObservableObject {
     var description: String
     var id: Int
     var name: String
@@ -44,7 +44,7 @@ class rentUnit: Identifiable, Decodable {
     var rentals: [String]
 }
 
-struct Rate: Decodable {
+struct Rate: Decodable, Encodable {
     var price: Float
     var intervalId: Int
     var intervalName: String

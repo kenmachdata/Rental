@@ -13,6 +13,9 @@
 		5F7018A428C6627B006A3EA1 /* CustomerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7018A328C6627B006A3EA1 /* CustomerDetailView.swift */; };
 		5F7018A728C7C1B0006A3EA1 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7018A628C7C1B0006A3EA1 /* Helpers.swift */; };
 		5F7018A928C7C3BF006A3EA1 /* ViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7018A828C7C3BF006A3EA1 /* ViewHelper.swift */; };
+		5F7018AD28C92EB6006A3EA1 /* UnitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7018AC28C92EB6006A3EA1 /* UnitViewModel.swift */; };
+		5F7018AF28C92EE4006A3EA1 /* UnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7018AE28C92EE4006A3EA1 /* UnitView.swift */; };
+		5F7018B128C938B9006A3EA1 /* UnitDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7018B028C938B9006A3EA1 /* UnitDetailView.swift */; };
 		5FCF75D428C282B100291170 /* RentalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF75D328C282B100291170 /* RentalApp.swift */; };
 		5FCF75D628C282B100291170 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF75D528C282B100291170 /* ContentView.swift */; };
 		5FCF75D828C282B300291170 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FCF75D728C282B300291170 /* Assets.xcassets */; };
@@ -31,6 +34,9 @@
 		5F7018A328C6627B006A3EA1 /* CustomerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerDetailView.swift; sourceTree = "<group>"; };
 		5F7018A628C7C1B0006A3EA1 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		5F7018A828C7C3BF006A3EA1 /* ViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHelper.swift; sourceTree = "<group>"; };
+		5F7018AC28C92EB6006A3EA1 /* UnitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitViewModel.swift; sourceTree = "<group>"; };
+		5F7018AE28C92EE4006A3EA1 /* UnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitView.swift; sourceTree = "<group>"; };
+		5F7018B028C938B9006A3EA1 /* UnitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitDetailView.swift; sourceTree = "<group>"; };
 		5FCF75D028C282B100291170 /* Rental.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rental.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FCF75D328C282B100291170 /* RentalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentalApp.swift; sourceTree = "<group>"; };
 		5FCF75D528C282B100291170 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -111,6 +117,8 @@
 				5FCF75EE28C2997600291170 /* AuthenticatedView.swift */,
 				5F70189D28C65A63006A3EA1 /* CustomerView.swift */,
 				5F7018A328C6627B006A3EA1 /* CustomerDetailView.swift */,
+				5F7018AE28C92EE4006A3EA1 /* UnitView.swift */,
+				5F7018B028C938B9006A3EA1 /* UnitDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -128,6 +136,7 @@
 			children = (
 				5FCF75EC28C2979700291170 /* LoginViewModel.swift */,
 				5F70189F28C65CAD006A3EA1 /* CustomerViewModel.swift */,
+				5F7018AC28C92EB6006A3EA1 /* UnitViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -214,6 +223,7 @@
 				5FCF75D628C282B100291170 /* ContentView.swift in Sources */,
 				5F70189E28C65A63006A3EA1 /* CustomerView.swift in Sources */,
 				5FCF75ED28C2979700291170 /* LoginViewModel.swift in Sources */,
+				5F7018AD28C92EB6006A3EA1 /* UnitViewModel.swift in Sources */,
 				5F7018A428C6627B006A3EA1 /* CustomerDetailView.swift in Sources */,
 				5FCF75EF28C2997600291170 /* AuthenticatedView.swift in Sources */,
 				5F7018A928C7C3BF006A3EA1 /* ViewHelper.swift in Sources */,
@@ -221,6 +231,8 @@
 				5F7018A728C7C1B0006A3EA1 /* Helpers.swift in Sources */,
 				5F7018A228C65D5A006A3EA1 /* apiModels.swift in Sources */,
 				5FCF75E928C294D400291170 /* WebService.swift in Sources */,
+				5F7018AF28C92EE4006A3EA1 /* UnitView.swift in Sources */,
+				5F7018B128C938B9006A3EA1 /* UnitDetailView.swift in Sources */,
 				5FCF75EB28C2965D00291170 /* LoginView.swift in Sources */,
 				5FCF75D428C282B100291170 /* RentalApp.swift in Sources */,
 			);

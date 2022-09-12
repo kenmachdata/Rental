@@ -41,10 +41,9 @@ struct ContentView: View {
                             .frame(width: 250, height: 85, alignment: .center)
                             .padding()
                         
-                        Text(loginVM.isAuthenticated ? "Manage" : "LogIn")
+                        Text(loginVM.isAuthenticated ? "Manage".uppercased() : "LogIn".uppercased())
                             .foregroundColor(K.Colors.buttonTextWhite)
-                            .font(.system(.title2))
-                            .bold()
+                            .font(K.Fonts.buttonText.bold())
                     }
                 })
             }

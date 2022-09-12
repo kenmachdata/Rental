@@ -46,6 +46,29 @@ struct MyTextFieldStyle: TextFieldStyle {
     }
 }
 
+extension Binding {
+    func onChange(_ handler: @escaping (Value) -> Void) -> Binding<Value> {
+        Binding(
+            get: { self.wrappedValue },
+            set: { newValue in
+                self.wrappedValue = newValue
+                handler(newValue)
+            }
+        )
+    }
+}
+
+extension Binding where Value == String {
+    func max(_ limit: Int) -> Self {
+        if (self.wrappedValue.count > limit) {
+            DispatchQueue.main.async {
+                self.wrappedValue = String(self.wrappedValue.prefix(limit))
+            }
+        }
+        return self
+    }
+}
+
 struct K {
     struct Colors {
         static let gradientStartBlue = Color(red: 153 / 255.0, green: 204 / 255.0, blue: 255 / 255.0)
@@ -59,6 +82,7 @@ struct K {
         static let sectionTitle = Font.custom("Avenir Heavy", size: 24)
         static let sectionItem = Font.custom("Avenir Heavy", size: 18)
         static let sectionHeader = Font.custom("Avenir", size: 14)
+        static let buttonText = Font.system(.title2)
         
         static let link = Font.custom("Avenir Heavy", size: 16)
     }

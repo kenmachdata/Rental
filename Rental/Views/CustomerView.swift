@@ -61,7 +61,7 @@ struct CustomerView: View {
                 }
             }
         }
-        .navigationTitle("ManageCustomers")
+        .navigationTitle("Customers")
     }
 }
 
