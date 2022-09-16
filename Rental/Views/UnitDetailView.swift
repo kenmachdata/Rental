@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Combine
 
 struct UnitDetailView: View {
     
@@ -25,7 +24,7 @@ struct UnitDetailView: View {
 
     var body: some View {
         
-        VStack{
+        VStack {
             Form {
                 Section {
                     HStack {
@@ -47,6 +46,7 @@ struct UnitDetailView: View {
                     TextField(unit.name, text: $name)
                         .focused( $nameInFocus )
                         .padding()
+                        .textContentType(.none)
                         .background(Color.gray.opacity(0.3).cornerRadius(10))
                         .foregroundColor(validateText() ? .green : .red)
                         .font(.headline)
@@ -157,9 +157,13 @@ struct UnitDetailView: View {
     }
 }
 
-//struct UnitDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        UnitDetailView(unit: ru, unitVM: UnitViewModel())
-//    }
-//}
+struct UnitDetailView_Previews: PreviewProvider {
+    
+
+    static var previews: some View {
+        var ru = rentUnit(description: "Description", id: 1, name: "Test", notes: "Notes", rates: [Rate](), rentals: [String]())
+
+        UnitDetailView(unitVM: UnitViewModel(), unit: ru)
+    }
+}
 

@@ -34,7 +34,7 @@ struct ContentView: View {
                 
                 NavigationLink(destination:
                                 loginVM.isAuthenticated == true ? AnyView(AuthenticatedView(loginVM: loginVM)):
-                                 AnyView(LoginView(loginVM: loginVM)), label: {
+                                    AnyView(LoginView(loginVM: loginVM)), label: {
                     ZStack {
                         
                         RectangleCard(color: K.Colors.buttonBlue)
