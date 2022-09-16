@@ -157,13 +157,13 @@ struct UnitDetailView: View {
     }
 }
 
-struct UnitDetailView_Previews: PreviewProvider {
-    
-
-    static var previews: some View {
-        var ru = rentUnit(description: "Description", id: 1, name: "Test", notes: "Notes", rates: [Rate](), rentals: [String]())
-
-        UnitDetailView(unitVM: UnitViewModel(), unit: ru)
-    }
-}
+//struct UnitDetailView_Previews: PreviewProvider {
+//    
+//
+//    static var previews: some View {
+//        var ru = rentUnit(description: "Description", id: 1, name: "Test", notes: "Notes", rates: [Rate](), rentals: [String]())
+//
+//        UnitDetailView(unitVM: UnitViewModel(), unit: ru)
+//    }
+//}
 

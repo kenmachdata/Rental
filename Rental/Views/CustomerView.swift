@@ -59,6 +59,17 @@ struct CustomerView: View {
                         }
                     }
                 }
+                Button(action: {
+                    
+                }, label: {
+                    Text("Create New".uppercased())
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.blue)
+                        .cornerRadius(30)
+                        .foregroundColor(.white)
+                        .font(K.Fonts.buttonText.bold())
+                }).padding()
             }
         }
         .navigationTitle("Customers")
@@ -67,6 +78,6 @@ struct CustomerView: View {
 
 //struct CustomerView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        CustomerView()
+//        CustomerView(customerVm: CustomerViewModel(), loginVm: LoginViewModel())
 //    }
 //}
