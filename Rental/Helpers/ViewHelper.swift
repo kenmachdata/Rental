@@ -86,6 +86,16 @@ struct K {
         
         static let link = Font.custom("Avenir Heavy", size: 16)
     }
+    
+    struct Url {
+        static let userLogin = "http://localhost:5000/api/authentication/login"
+        
+        static let customersGetAll = "http://localhost:5000/api/customers/all"
+        static let customersPatch = "http://localhost:5000/api/customers/update"
+        
+        static let unitsGetAll = "http://localhost:5000/api/units/all"
+        static let unitsPatch = "http://localhost:5000/api/units/update"
+    }
 }
 
 

@@ -15,6 +15,7 @@ struct UnitDetailView: View {
     
     @State private var name = ""
     @State private var description = ""
+    @State private var notes = ""
     
     @FocusState private var nameInFocus: Bool
     @FocusState private var descriptionInFocus: Bool
@@ -60,7 +61,7 @@ struct UnitDetailView: View {
                     //                                                 verticalPad: 3))
                     
                 } header: {
-                    Text("Edit Unit Name")
+                    Text("Edit Name:")
                         .font(K.Fonts.sectionHeader)
                     }
                 
@@ -69,15 +70,47 @@ struct UnitDetailView: View {
                     Text("Description: \(unit.description)")
                         .font(K.Fonts.sectionItem)
                     
-                    TextField(unit.description, text: $description)
-                        .focused( $descriptionInFocus )
-                        .padding()
-                        .background(Color.gray.opacity(0.3).cornerRadius(10))
-                        .foregroundColor(validateText() ? .green : .red)
-                        .font(.headline)
+//                    TextField("Address", text: $address, axis: .vertical)
+//                                .lineLimit(2)
+//
+//                                .textFieldStyle(.roundedBorder)
+//                                .padding()
+                    
+                    
+                    if #available(iOS 16.0, *) {
+                        TextField(unit.description, text: $description, axis: .vertical)
+                            .lineLimit(3)
+                            .focused( $descriptionInFocus )
+                            .padding()
+                            .background(Color.gray.opacity(0.3).cornerRadius(10))
+                            .foregroundColor(validateText() ? .green : .red)
+                            .font(.headline)
+                    } else {
+                        // Fallback on earlier versions
+                    }
                     
                 } header: {
-                    Text("Edit Unit Description")
+                    Text("Edit Description:")
+                        .font(K.Fonts.sectionHeader)
+                    }
+                
+                Section {
+                    Text("Notes: \(unit.notes)")
+                        .font(K.Fonts.sectionItem)
+                    
+                    if #available(iOS 16.0, *) {
+                        TextField(unit.notes, text: $notes, axis: .vertical)
+                            .lineLimit(3)
+                            .focused( $notesInFocus )
+                            .padding()
+                            .background(Color.gray.opacity(0.3).cornerRadius(10))
+                            .foregroundColor(validateText() ? .green : .red)
+                            .font(.headline)
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                } header: {
+                    Text("Edit Notes:")
                         .font(K.Fonts.sectionHeader)
                     }
         }
@@ -92,9 +125,17 @@ struct UnitDetailView: View {
                     } else if descriptionInFocus {
                         unit.description = description.trimmingCharacters(in: .whitespacesAndNewlines)
                         description = ""
+                    } else if notesInFocus {
+                        unit.notes = notes.trimmingCharacters(in: .whitespacesAndNewlines)
+                        notes = ""
                     }
                     
+                    unit.rates[0].intervalId = 1
+                    unit.rates[0].price = 1000
+                    
+                    
                     self.unitVM.objectWillChange.send()
+                    self.unitVM.updateUnit(selectedUnit: unit)
                 }
                 
             }, label: {
@@ -129,7 +170,7 @@ struct UnitDetailView: View {
         } else if descriptionInFocus {
             
                 // description has length lets check it
-                if description.count >= 5 && description.count <= 27 {
+                if description.count >= 5 && description.count <= 256 {
                     
                     // check begining and end for spaces and newlines
                     guard !description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
@@ -138,6 +179,18 @@ struct UnitDetailView: View {
                     
                     // description checks good spaces and newlines trimmed begining and end
                     return true
+            }
+        } else if notesInFocus {
+            // notes has length lets check it
+            if notes.count >= 5 && notes.count <= 256 {
+                
+                // check begining and end for spaces and newlines
+                guard !notes.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                    return false
+                }
+                
+                // notes checks good spaces and newlines trimmed begining and end
+                return true
             }
         }
             return false

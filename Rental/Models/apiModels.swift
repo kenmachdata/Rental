@@ -36,17 +36,17 @@ class Customer: Identifiable, Decodable, Encodable, ObservableObject {
 }
 
 class rentUnit: Identifiable, Decodable, Encodable, ObservableObject {
-    var description: String
     var id: Int
     var name: String
+    var description: String
     var notes: String
     var rates: [Rate]
     var rentals: [String]
     
     init(description: String, id: Int, name: String, notes: String, rates: [Rate], rentals: [String]) {
-        self.description = description
         self.id = id
         self.name = name
+        self.description = description
         self.notes = notes
         self.rates = [Rate]()
         self.rentals = [String]()
@@ -54,7 +54,8 @@ class rentUnit: Identifiable, Decodable, Encodable, ObservableObject {
 }
 
 struct Rate: Decodable, Encodable {
-    var price: Float
     var intervalId: Int
+    var price: Float
     var intervalName: String
 }
+
