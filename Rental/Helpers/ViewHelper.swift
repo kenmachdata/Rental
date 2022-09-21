@@ -92,6 +92,7 @@ struct K {
         
         static let customersGetAll = "http://localhost:5000/api/customers/all"
         static let customersPatch = "http://localhost:5000/api/customers/update"
+        static let customersCreate = "http://localhost:5000/api/customers/create"
         
         static let unitsGetAll = "http://localhost:5000/api/units/all"
         static let unitsPatch = "http://localhost:5000/api/units/update"

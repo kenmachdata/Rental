@@ -33,6 +33,20 @@ class Customer: Identifiable, Decodable, Encodable, ObservableObject {
     var state: String
     var zip: String
     var rentals: [String]
+    
+    init(id: Int, address: String, city: String, email: String, firstName: String, lastName: String, notes: String, phoneNumber: String, state: String, zip: String, rentals: [String]) {
+        self.id = id
+        self.address = address
+        self.city = city
+        self.email = email
+        self.firstName = firstName
+        self.lastName = lastName
+        self.notes = notes
+        self.phoneNumber = phoneNumber
+        self.state = state
+        self.zip = zip
+        self.rentals = rentals
+    }
 }
 
 class rentUnit: Identifiable, Decodable, Encodable, ObservableObject {
