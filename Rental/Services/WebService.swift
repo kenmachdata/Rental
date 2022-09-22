@@ -108,6 +108,61 @@ class WebService: ObservableObject {
         }.resume()
     }
     
+    // Request the Rental API Create Customer
+    func createCustomer(token: String, customer: Customer, completion: @escaping (Result<Customer, NetworkError>) -> Void) {
+
+        // Construct the URL
+        guard let url = URL(string: K.Url.customersCreate) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+
+        // Define request
+        var request = URLRequest(url: url)
+        
+        // Build the request
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("gzip, deflate, br", forHTTPHeaderField: "Accept-Encoding")
+        
+        request.httpMethod = "POST"
+
+        // Assure the passed in customer encodes to json
+        guard let encodedResult = try? JSONEncoder().encode(customer.self) else {
+            completion(.failure(.encodingError))
+            return
+        }
+        
+        // If the passed in customer correctly encodes set the request.httpBody
+        request.httpBody = encodedResult
+
+
+        // Get the session and kick off the task
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+
+            //Just for my knowledge
+            if let response = response as? HTTPURLResponse{
+                print(response.statusCode)
+            }
+            
+            // Check after the create for !data.isEmpty and error == nil
+            guard let data = data, !data.isEmpty, error == nil else {
+                completion(.failure(.noData))
+                return
+            }
+            
+            // If data decodes all is good to go
+            guard let editedCustomer = try? JSONDecoder().decode(Customer.self, from: data) else {
+                completion(.failure(.decodingError))
+                return
+            }
+            
+            completion(.success(editedCustomer))
+
+        }.resume()
+    }
+
+    
     // Request the Rental API PATCH Customer
     func patchCustomer(token: String, customer: Customer, completion: @escaping (Result<Customer, NetworkError>) -> Void) {
 
@@ -160,7 +215,6 @@ class WebService: ObservableObject {
 
         }.resume()
     }
-    
     
     // Request the Rental API reveal all the units
     func getAllUnits(token: String, completion: @escaping (Result<[rentUnit], NetworkError>) -> Void) {

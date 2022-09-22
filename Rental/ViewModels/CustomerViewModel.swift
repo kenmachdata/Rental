@@ -80,6 +80,26 @@ class CustomerViewModel: ObservableObject {
         }
     }
     
+    func createCustomer(passedCustomer: Customer) {
+        
+        let defaults = UserDefaults.standard
+        guard let token = defaults.string(forKey: "jsonWebToken") else {
+            return
+        }
+        
+        // "Thursday, September 22, 2022 at 3:54:55 PM Central Daylight Time"
+        passedCustomer.notes = "\(passedCustomer.firstName) \(passedCustomer.lastName) Joined us on: \( Date().mediumDateTime)"
+        
+        WebService().createCustomer(token: token, customer: passedCustomer) { (result) in
+            switch result {
+            case .success(let customer):
+                print(customer.firstName)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     func updateCustomer(selectedCustomer: Customer) {
         
         let defaults = UserDefaults.standard

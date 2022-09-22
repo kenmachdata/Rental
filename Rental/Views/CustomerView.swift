@@ -13,6 +13,8 @@ struct CustomerView: View {
     @ObservedObject var loginVm: LoginViewModel
     
     
+    
+    
 //    @EnvironmentObject var model: ContentModel
     
     var body: some View {
@@ -59,9 +61,10 @@ struct CustomerView: View {
                         }
                     }
                 }
-                Button(action: {
+                NavigationLink(
+                    destination: CustomerCreateView(customerVM: customerVm),
                     
-                }, label: {
+                    label: {
                     Text("Create New".uppercased())
                         .padding()
                         .frame(maxWidth: .infinity)

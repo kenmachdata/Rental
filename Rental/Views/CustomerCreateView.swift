@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct CustomerCreateView: View {
+    
     @ObservedObject var customerVM: CustomerViewModel
-    @State var customer: Customer
+    
+    @State private var customer = Customer(id: UUID().hashValue, address: "", city: "", email: "", firstName: "", lastName: "", notes: "", phoneNumber: "", state: "", zip: "", rentals: [String]())
     
     var body: some View {
         ZStack {
@@ -99,7 +101,7 @@ struct CustomerCreateView: View {
                     Text("Phone:")
                         .font(K.Fonts.sectionItem)
                     TextField("", text: $customer.phoneNumber)
-                        .keyboardType(.phonePad)
+                        .keyboardType(.numberPad)
                         .padding(.leading)
                     //                        .focused( $nameInFocus )
                         .frame(width: nil, height: 35)
@@ -119,7 +121,7 @@ struct CustomerCreateView: View {
                         .font(K.Fonts.sectionHeader)
                     }
                 Section {
-                    Button(action: {},
+                    Button(action: {customerVM.createCustomer(passedCustomer: customer)},
                            label: {
                         Text("Submit".uppercased())
                             .padding()
@@ -134,46 +136,14 @@ struct CustomerCreateView: View {
             }
         }
         .padding()
+        .navigationTitle("Create Customer")
     }
 }
 
 struct CustomerCreateView_Previews: PreviewProvider {
     static var previews: some View {
-        let c = Customer(id: 1, address: "123 City Road", city: "Manfield", email: "KennyBoy@gmail.com", firstName: "Kenneth", lastName: "Chatham", notes: "This is a note", phoneNumber: "8179377432", state: "AL", zip: "35126", rentals: [String]())
+//        let c = Customer(id: 1, address: "123 City Road", city: "Manfield", email: "KennyBoy@gmail.com", firstName: "Kenneth", lastName: "Chatham", notes: "This is a note", phoneNumber: "8179377432", state: "AL", zip: "35126", rentals: [String]())
 
-        CustomerCreateView(customerVM: CustomerViewModel(), customer: c)
+        CustomerCreateView(customerVM: CustomerViewModel())
     }
 }
-
-
-//// Setup the fields
-//HStack{
-//    VStack(alignment:.leading) {
-//        Text("FirstName:")
-//            .font(K.Fonts.sectionItem)
-//            .multilineTextAlignment(.leading)
-//            .padding(.leading, 12.0)
-//            .padding(.bottom, 0)
-//        TextField("", text: $customer.firstName)
-//            .frame(width: nil, height: 35)
-//            .background(Color(.white))
-//            .font(K.Fonts.sectionTitle)
-//            .multilineTextAlignment(.leading)
-//            .cornerRadius(22)
-//            .padding(.top, 0)
-//    }
-//    VStack(alignment:.leading) {
-//        Text("LastName:")
-//            .font(K.Fonts.sectionItem)
-//            .multilineTextAlignment(.leading)
-//            .padding(.leading, 12.0)
-//            .padding(.bottom, 0)
-//        TextField("", text: $customer.lastName)
-//            .frame(width: nil, height: 35)
-//            .background(Color(.white))
-//            .font(K.Fonts.sectionTitle)
-//            .multilineTextAlignment(.leading)
-//            .cornerRadius(22)
-//    }
-//}
-//.padding()
