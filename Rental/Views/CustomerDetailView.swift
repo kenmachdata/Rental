@@ -9,12 +9,13 @@ import SwiftUI
 
 struct CustomerDetailView: View {
     
+    @ObservedObject var customerVM: CustomerViewModel
     @State var customer: Customer
     
     // Whether the user is focused on this `TextField`.
     @State private var isEditing: Bool = false
     
-    @ObservedObject var customerVM: CustomerViewModel
+    
     
     // @EnvironmentObject var model: ContentModel
     
@@ -23,9 +24,11 @@ struct CustomerDetailView: View {
         VStack {
             Form {
                 Section {
-                    Text("\(customer.firstName + " " + customer.lastName)")
-                        .font(K.Fonts.sectionTitle)
+//                    Text("\(customer.firstName + " " + customer.lastName)")
+                    Text(customer.notes)
+                        
                 }
+                .font(K.Fonts.sectionTitle)
                
                 Section {
                     Text("First Name: \(customer.firstName)")
@@ -150,8 +153,9 @@ struct CustomerDetailView: View {
 }
 
 
-//struct CustomerDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CustomerDetailView(customer: Customer)
-//    }
-//}
+struct CustomerDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        let c = Customer(id: 1, address: "123 City Road", city: "Manfield", email: "KennyBoy@gmail.com", firstName: "Kenneth", lastName: "Chatham", notes: "This is a note", phoneNumber: "8179377432", state: "AL", zip: "35126", rentals: [String]())
+        CustomerDetailView(customerVM: CustomerViewModel(), customer: c)
+    }
+}

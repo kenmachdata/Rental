@@ -41,13 +41,13 @@ struct CustomerView: View {
                         ForEach(customerVm.customerList) { customer in
                             
                             NavigationLink(
-                                destination: CustomerDetailView(customer: customer, customerVM: customerVm),
+                                destination: CustomerDetailView(customerVM: customerVm, customer: customer),
                                 label: {
                                     
                                     // MARK: Row item
                                     VStack(alignment: .leading) {
                                         HStack {
-                                            Text(customer.firstName + " " + customer.lastName)
+                                            Text(Image(systemName: "person")) + Text(" " + customer.firstName + " ") + Text(customer.lastName)
                                             Spacer()
                                             Text(customer.phoneNumber.applyPatternOnNumbers(pattern: "(###) ###-####", replacementCharacter: "#"))
                                         }

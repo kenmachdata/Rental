@@ -10,6 +10,7 @@ import SwiftUI
 struct CustomerCreateView: View {
     
     @ObservedObject var customerVM: CustomerViewModel
+    @Environment(\.dismiss) var showCustomers
     
     @State private var customer = Customer(id: UUID().hashValue, address: "", city: "", email: "", firstName: "", lastName: "", notes: "", phoneNumber: "", state: "", zip: "", rentals: [String]())
     
@@ -31,6 +32,7 @@ struct CustomerCreateView: View {
                                 .frame(width: nil, height: 35)
                                 .background(Color.gray.opacity(0.3).cornerRadius(10))
                                 .font(.headline)
+                                .autocapitalization(/*@START_MENU_TOKEN@*/.words/*@END_MENU_TOKEN@*/)
                         }
                         VStack {
                             Text("LastName:")
@@ -41,6 +43,7 @@ struct CustomerCreateView: View {
                                 .frame(width: nil, height: 35)
                                 .background(Color.gray.opacity(0.3).cornerRadius(10))
                                 .font(.headline)
+                                .autocapitalization(/*@START_MENU_TOKEN@*/.words/*@END_MENU_TOKEN@*/)
                         }
                     }
                 } header: {
@@ -57,6 +60,7 @@ struct CustomerCreateView: View {
                         .frame(width: nil, height: 35)
                         .background(Color.gray.opacity(0.3).cornerRadius(10))
                         .font(.headline)
+                        .autocapitalization(/*@START_MENU_TOKEN@*/.words/*@END_MENU_TOKEN@*/)
                     
                     HStack {
                         VStack {
@@ -68,6 +72,7 @@ struct CustomerCreateView: View {
                                 .frame(width: nil, height: 35)
                                 .background(Color.gray.opacity(0.3).cornerRadius(10))
                                 .font(.headline)
+                                .autocapitalization(/*@START_MENU_TOKEN@*/.words/*@END_MENU_TOKEN@*/)
                         }
                         
                         VStack {
@@ -79,6 +84,7 @@ struct CustomerCreateView: View {
                                 .frame(width: 50, height: 35)
                                 .background(Color.gray.opacity(0.3).cornerRadius(10))
                                 .font(.headline)
+                                .autocapitalization(.allCharacters)
                         }
                         
                         VStack {
@@ -90,6 +96,7 @@ struct CustomerCreateView: View {
                                 .frame(width: nil, height: 35)
                                 .background(Color.gray.opacity(0.3).cornerRadius(10))
                                 .font(.headline)
+                                .keyboardType(/*@START_MENU_TOKEN@*/.numberPad/*@END_MENU_TOKEN@*/)
                         }
                     }
                 } header: {
@@ -121,7 +128,12 @@ struct CustomerCreateView: View {
                         .font(K.Fonts.sectionHeader)
                     }
                 Section {
-                    Button(action: {customerVM.createCustomer(passedCustomer: customer)},
+                    Button(action: {customerVM.createCustomer(passedCustomer: customer)
+                        // Add the newly created customer to the customerlist
+                        customerVM.customerList.append(customer)
+                        // Dismis this view and show the customer view
+                        showCustomers()
+                    },
                            label: {
                         Text("Submit".uppercased())
                             .padding()
@@ -140,10 +152,10 @@ struct CustomerCreateView: View {
     }
 }
 
-struct CustomerCreateView_Previews: PreviewProvider {
-    static var previews: some View {
-//        let c = Customer(id: 1, address: "123 City Road", city: "Manfield", email: "KennyBoy@gmail.com", firstName: "Kenneth", lastName: "Chatham", notes: "This is a note", phoneNumber: "8179377432", state: "AL", zip: "35126", rentals: [String]())
-
-        CustomerCreateView(customerVM: CustomerViewModel())
-    }
-}
+//struct CustomerCreateView_Previews: PreviewProvider {
+//    static var previews: some View {
+////        let c = Customer(id: 1, address: "123 City Road", city: "Manfield", email: "KennyBoy@gmail.com", firstName: "Kenneth", lastName: "Chatham", notes: "This is a note", phoneNumber: "8179377432", state: "AL", zip: "35126", rentals: [String]())
+//
+//        CustomerCreateView(customerVM: CustomerViewModel())
+//    }
+//}
