@@ -22,7 +22,7 @@ class UnitViewModel: ObservableObject {
             switch result {
             case .success(let unit):
                 DispatchQueue.main.async {
-//                    self.unitList = unit.map(UnitListViewModel.init)
+                    //                    self.unitList = unit.map(UnitListViewModel.init)
                     self.unitList = unit
                 }
             case .failure(let error):
@@ -31,16 +31,9 @@ class UnitViewModel: ObservableObject {
         }
     }
     
-    struct UnitListViewModel {
-        let unit: rentUnit
-        let id = UUID()
-        var name: String {
-            return (unit.name)
-        }
+    // FIXME: Function to create a unit
+    func createUnit(passedUnit: rentUnit) {
         
-        var description: String {
-            return unit.description
-        }
     }
     
     func updateUnit(selectedUnit: rentUnit) {
@@ -59,4 +52,18 @@ class UnitViewModel: ObservableObject {
             }
         }
     }
+    
+    struct UnitListViewModel {
+        let unit: rentUnit
+        let id = UUID()
+        var name: String {
+            return (unit.name)
+        }
+        
+        var description: String {
+            return unit.description
+        }
+    }
 }
+
+
