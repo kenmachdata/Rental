@@ -22,21 +22,98 @@ struct UnitDetailView: View {
     @FocusState private var notesInFocus: Bool
     
     let nameLimit = 32
-
+    @State private var rentalContractEdit = true
+    
+    @State var interval: String = "Monthly"
+    let pickerInterval: [String] = [
+        "Hourly", "Daily", "Weekly", "BiWeekly", "Monthly", "Yearly"
+    ]
+    @State var rate: String = "$75.00"
+    let pickerRate: [String] = [
+        "$25.00", "$50.00", "$75.00", "$100.00", "$125.00",
+        "$150.00", "$175.00", "$200.00", "$225.00", "$250.00",
+        "$275.00", "$300.00", "$325.00", "$350.00", "$375.00",
+        "$400.00", "$425.00", "$450.00", "$475.00", "$500.00",
+        "$525.00", "$550.00", "$575.00", "$600.00", "$625.00",
+        "$650.00", "$675.00", "$700.00", "$725.00", "$750.00",
+        "$775.00", "$800.00", "$825.00", "$850.00", "$875.00",
+        "$900.00", "$925.00", "$950.00", "$975.00", "$1000.00"
+    ]
+    
     var body: some View {
         
         VStack {
             Form {
                 Section {
                     HStack {
-                        Spacer()
                         Text("Id: \(unit.id)")
-                        Spacer()
                     }
                     .font(K.Fonts.sectionTitle)
+                   
                 } header: {
                     Text("Unit Id")
                         .font(K.Fonts.sectionHeader)
+                    }
+                
+                Section {
+                    
+                    Picker(
+                        selection: $interval,
+                        label:
+                            HStack {
+                                Text("Interval:")
+                                Text(interval)
+                            }
+                            .font(.headline)
+                            .foregroundColor(rentalContractEdit ? Color(.systemGray) : .white)
+                            .padding()
+                            .padding(.horizontal)
+                            .background(rentalContractEdit ?  Color(.systemGray4) : Color.blue)
+                            .cornerRadius(10)
+                            .shadow(color: Color.blue.opacity(0.3), radius: 10, x: 0, y: 10)
+                        ,
+                        content: {
+                            ForEach(pickerInterval, id: \.self) { option in
+                                    Text(option)
+                                        .tag(option)
+                            }.onAppear{ interval = unit.rates[0].intervalName}
+                    })
+                    .pickerStyle(.automatic)
+                            .disabled(rentalContractEdit)
+                    Picker(
+                        selection: $rate,
+                        label:
+                            HStack {
+                                Text("Rate:")
+                                Text(rate)
+                            }
+                            .font(.headline)
+                            .foregroundColor(rentalContractEdit ? Color(.systemGray) : .white)
+                            .padding()
+                            .padding(.horizontal)
+                            .background(rentalContractEdit ?  Color(.systemGray4) : Color.blue)
+                            .cornerRadius(10)
+                            .shadow(color: Color.blue.opacity(0.3), radius: 10, x: 0, y: 10)
+                        ,
+                        content: {
+                            ForEach(pickerRate, id: \.self) { option in
+                                    Text(option)
+                                        .tag(option)
+                            }.onAppear{ rate = "$" + unit.rates[0].price.description + "0"}
+                    })
+                    .pickerStyle(.automatic)
+                    .disabled(rentalContractEdit)
+                } header: {
+                    HStack {
+                        Text("Rental Contract")
+                        Spacer()
+                        Button(action: {
+                            rentalContractEdit.toggle()
+                        }, label: {
+                            Text("Edit")
+                        })
+                    }
+                    .font(K.Fonts.sectionHeader)
                     }
                 
                 Section {
@@ -61,7 +138,7 @@ struct UnitDetailView: View {
                     //                                                 verticalPad: 3))
                     
                 } header: {
-                    Text("Edit Name:")
+                    Text("Name:")
                         .font(K.Fonts.sectionHeader)
                     }
                 
@@ -90,7 +167,7 @@ struct UnitDetailView: View {
                     }
                     
                 } header: {
-                    Text("Edit Description:")
+                    Text("Description:")
                         .font(K.Fonts.sectionHeader)
                     }
                 
@@ -110,10 +187,11 @@ struct UnitDetailView: View {
                         // Fallback on earlier versions
                     }
                 } header: {
-                    Text("Edit Notes:")
+                    Text("Notes:")
                         .font(K.Fonts.sectionHeader)
                     }
         }
+
 
 
             Button(action: {
@@ -130,8 +208,34 @@ struct UnitDetailView: View {
                         notes = ""
                     }
                     
-                    unit.rates[0].intervalId = 1
-                    unit.rates[0].price = 1000
+                    switch interval {
+                    case "Hourly":
+                        unit.rates[0].intervalId = 0
+                        unit.rates[0].intervalName = "Hourly"
+                    case "Daily":
+                        unit.rates[0].intervalId = 1
+                        unit.rates[0].intervalName = "Daily"
+                    case "Weekly":
+                        unit.rates[0].intervalId = 2
+                        unit.rates[0].intervalName = "Weekly"
+                    case "Biweekly":
+                        unit.rates[0].intervalId = 3
+                        unit.rates[0].intervalName = "Biweekly"
+                    case "Monthly":
+                        unit.rates[0].intervalId = 4
+                        unit.rates[0].intervalName = "Monthly"
+                    case "Yearly":
+                        unit.rates[0].intervalId = 6
+                        unit.rates[0].intervalName = "Yearly"
+                    default:
+                        unit.rates[0].intervalId = 4
+                        unit.rates[0].intervalName = "Monthly"
+                    }
+                    
+                    rate = rate.replacingOccurrences(of: "$", with: "", options: NSString.CompareOptions.literal, range: nil)
+                    unit.rates[0].price = (rate as NSString).floatValue
+                    rate = "$" + rate
+                    rentalContractEdit.toggle()
                     
                     
                     self.unitVM.objectWillChange.send()
@@ -210,13 +314,13 @@ struct UnitDetailView: View {
     }
 }
 
-//struct UnitDetailView_Previews: PreviewProvider {
-//    
-//
-//    static var previews: some View {
-//        var ru = rentUnit(description: "Description", id: 1, name: "Test", notes: "Notes", rates: [Rate](), rentals: [String]())
-//
-//        UnitDetailView(unitVM: UnitViewModel(), unit: ru)
-//    }
-//}
+struct UnitDetailView_Previews: PreviewProvider {
+    
+
+    static var previews: some View {
+        var ru = rentUnit(description: "Description", id: 1, name: "Test", notes: "Notes", rates: [Rate](), rentals: [String]())
+
+        UnitDetailView(unitVM: UnitViewModel(), unit: ru)
+    }
+}
 
